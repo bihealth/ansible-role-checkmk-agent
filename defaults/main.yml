@@ -1,0 +1,14 @@
+---
+
+# REQUIRED Settings -------------------------------------------------------------------------------
+
+# The source hosts/IPs to allow connections from.
+# checkmk_agent_sources: []
+
+# The CheckMK site (e.g, for downloading files).
+# checkmk_agent_site: ""
+
+# The Check_MK agent version to install.
+# checkmk_agent_version: ""
+
+# Important Settings (you might want to override these) -------------------------------------------

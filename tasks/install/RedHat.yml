@@ -1,0 +1,18 @@
+---
+
+- name: install EPEL repository
+  yum: name=epel-release state=present
+  when: >  # not for Fedora
+    ansible_distribution == 'CentOS' or
+    ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: install xinetd
+  yum: name=xinetd state=present
+
+- name: activate xinetd
+  systemd: name=xinetd state=started enabled=true
+
+- name: install checkmk_agent
+  yum:
+    name: "http://{{ checkmk_agent_sources[0] }}/{{ checkmk_agent_site }}/check_mk/agents/check-mk-agent-{{ checkmk_agent_version }}.noarch.rpm"
+    state: present

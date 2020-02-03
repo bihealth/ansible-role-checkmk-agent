@@ -1,0 +1,4 @@
+---
+
+- name: restart xinetd
+  systemd: name=xinetd state=restarted

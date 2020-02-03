@@ -1,0 +1,30 @@
+---
+
+- name: perform installation
+  include_tasks: install/{{ ansible_os_family }}.yml
+
+- name: Create directory for check_mk plugins
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: "u=rwx,go=rx"
+  with_items:
+    - /usr/lib/check_mk_agent
+    - /usr/lib/check_mk_agent/plugins
+
+- name: Copy in Check_MK plugins
+  copy:
+    src: plugins/{{ item }}
+    dest: /usr/lib/check_mk_agent/plugins/{{ item }}
+    mode: ug=rx,o=r
+  with_items:
+    - smart
+    - mk_inventory.linux
+
+- name: Only allow access to Check_MK from specific hosts
+  template:
+    src: xinetd.d/check_mk
+    dest: /etc/xinetd.d/check_mk
+    mode: u=rw,go=r
+  notify:
+    - restart xinetd
