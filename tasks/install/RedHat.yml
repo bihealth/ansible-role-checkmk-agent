@@ -16,3 +16,4 @@
   yum:
     name: "http://{{ checkmk_agent_sources[0] }}/{{ checkmk_agent_site }}/check_mk/agents/check-mk-agent-{{ checkmk_agent_version }}.noarch.rpm"
     state: present
+    validate_certs: false
